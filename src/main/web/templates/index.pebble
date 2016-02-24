@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Welcome!</title>
+</head>
+<body>
+{% for message in messages %}
+<h1>{{message.subject}} {{message.text}}</h1>
+{% endfor %}
+<hr/>
+<p>Users:</p>
+<ul>
+	<li>user/user</li>
+	<li>admin/admin</li>
+</ul>
+<hr/>
+<p><a href="/secure/">Secure page</a></p>
+<hr/>
+<p>Management endpoints:</p>
+<ul>
+	<li><a href="/management/dump">Thread dump</a></li>
+	<li><a href="/management/health">Server health</a></li>
+	<li><a href="/management/metrics">Application metrics</a></li>
+	<li><a href="/management/trace">Access log for the last hundred http requests</a></li>
+</ul>
+</body>
+</html>

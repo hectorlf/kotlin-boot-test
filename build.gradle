@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+	    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.2.RELEASE")
+        classpath('org.springframework:springloaded:1.2.5.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+project.sourceCompatibility = '1.8'
+project.archivesBaseName = 'spring-boot-test'
+project.version = '0.1.0'
+
+sourceSets {
+	main {
+		resources {
+			srcDir 'src/main/web'
+		}
+	}
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    flatDir { dirs 'lib' }
+}
+
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-undertow")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.springframework.session:spring-session:1.0.2.RELEASE")
+	compile("com.hectorlopezfernandez.pebble:pebble-spring-boot-starter:0.5.2")
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
+
+	runtime("org.hsqldb:hsqldb")
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+task start(dependsOn: bootRun) {
+	outputs.upToDateWhen { false }
+}
