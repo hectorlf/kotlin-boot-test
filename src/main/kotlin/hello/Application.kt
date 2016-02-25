@@ -11,16 +11,16 @@ import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServle
 import org.springframework.boot.web.servlet.ServletComponentScan
 import org.springframework.context.annotation.Bean
 
+fun main(args: Array<String>) {
+    SpringApplication.run(Application::class.java)
+}
+
 @SpringBootApplication(exclude = arrayOf(SecurityAutoConfiguration::class, ManagementWebSecurityAutoConfiguration::class))
 @ServletComponentScan
-class Application {
-
-    fun main(args: Array<String>) {
-        SpringApplication.run(Application::class)
-    }
+open class Application {
 
     @Bean
-    fun servletContainer(): EmbeddedServletContainerFactory {
+    open fun servletContainer(): EmbeddedServletContainerFactory {
         val containerFactory = UndertowEmbeddedServletContainerFactory();
         containerFactory.addBuilderCustomizers(UndertowBuilderCustomizer { builder ->
             val address = if (containerFactory.address == null) "0.0.0.0" else containerFactory.address.hostAddress
